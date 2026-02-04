@@ -1,53 +1,97 @@
-# Local Image LLM
+# Image Gen Hub
 
-로컬 이미지 생성 서버. Z-Image, FLUX, SDXL 등 여러 모델 지원.
+로컬 GPU 또는 클라우드 API(NovelAI)로 이미지를 생성하는 통합 API 서버.
+FastAPI 기반이며, 모델 전환/스타일 프리셋/LoRA/비동기 큐를 지원한다.
 
 ## 요구사항
 
 - Python 3.10+
-- CUDA GPU (권장)
-- 16GB+ VRAM (Z-Image full 모델 기준)
+- CUDA GPU 또는 Apple Silicon (MPS)
+- VRAM: 8GB~ (SDXL 기준) / 16GB~ (Z-Image full)
 
 ## 설치
 
 ```bash
-# 가상환경 생성
+# uv 사용 (권장)
+uv sync
+
+# 또는 pip
 python -m venv .venv
-source .venv/bin/activate  # Windows: .venv\Scripts\activate
-
-# 의존성 설치
+source .venv/bin/activate
 pip install -r requirements.txt
-
-# 환경 변수 설정
-cp .env.example .env
 ```
 
 ## 실행
 
 ```bash
-# 개발 모드
-python -m app.main
+# API 서버
+make dev
 
-# 또는
-uvicorn app.main:app --host 0.0.0.0 --port 8002 --reload
+# 비동기 워커 (SAQ + Redis)
+make worker
+
+# 서버 + 워커 동시 실행
+make dev-all
 ```
+
+서버 주소: `http://localhost:8002`
+
+## 지원 모델
+
+| 모델 | 파이프라인 | 설명 |
+|------|-----------|------|
+| `animagine-xl-4` | SDXL | 애니메이션 일러스트 특화 (기본값) |
+| `noobai-xl` | SDXL | 캐릭터 인식 최강, 13M 학습 |
+| `noobai-xl-vpred` | SDXL | v-prediction, 클린 출력 |
+| `pony-diffusion-v6` | SDXL | 프롬프트 충실도 높음 |
+| `illustrious-xl` | SDXL | 대규모 데이터셋 기반 |
+| `z-image` | Z-Image | 고품질 다목적 |
+| `z-image-turbo` | Z-Image | 빠른 생성 (8 steps) |
+| `flux-schnell` | FLUX | 빠른 생성 (4 steps) |
+| `flux-dev` | FLUX | 최고 품질 (비상업적) |
+| `sdxl` | SDXL | 범용 기본 |
+
+모델은 첫 요청 시 HuggingFace에서 자동 다운로드된다.
+
+## 스타일 프리셋
+
+`style` 파라미터로 프롬프트에 스타일을 자동 적용할 수 있다.
+
+| 프리셋 | 설명 |
+|--------|------|
+| `pale_aqua` | 투명 수채 + 연한 블루톤 + 깔끔한 선화 |
+| `cozy_gouache` | 러프 스케치 + 과슈 워시 + 뮤트 색상 |
+| `watercolor_sketch` | 극세선 + 탈색 수채화 |
+| `kyoto_animation` | 섬세한 일상계, 부드러운 조명 |
+| `monogatari` | 샤프트 연출, 와타나베 아키오 스타일 |
+| `shinkai` | 배경 특화, 감성적인 하늘 |
+| `ghibli` | 따뜻한 색감, 자연, 노스탤지어 |
+| `ufotable` | 화려한 이펙트, 액션 |
+
+외 14개 프리셋 추가 지원. `GET /api/styles`로 전체 목록 확인 가능.
 
 ## API
 
-### POST /api/generate
+### `POST /api/generate`
 
 이미지 생성
 
 ```json
 {
-  "prompt": "anime girl, cherry blossom, masterpiece",
+  "prompt": "1girl, frieren, white hair, elf ears, mage robe",
   "negative_prompt": "lowres, bad anatomy",
-  "width": 1024,
-  "height": 1024,
+  "width": 832,
+  "height": 1216,
   "steps": 28,
   "guidance_scale": 4.0,
   "seed": null,
-  "model": "z-image"
+  "model": "animagine-xl-4",
+  "provider": "local",
+  "style": "pale_aqua",
+  "lora": null,
+  "lora_scale": 1.0,
+  "save_to_disk": true,
+  "filename": null
 }
 ```
 
@@ -56,48 +100,104 @@ uvicorn app.main:app --host 0.0.0.0 --port 8002 --reload
 ```json
 {
   "success": true,
-  "image_base64": "iVBORw0KGgo...",
+  "image_base64": "...",
   "seed": 12345678,
-  "model": "z-image"
+  "model": "animagine-xl-4",
+  "provider": "local",
+  "filename": "2026-02-04/animagine-xl-4_153012_12345678.webp"
 }
 ```
 
-### GET /api/models
+### `GET /api/models`
 
 사용 가능한 모델 목록
 
-### POST /api/models/{model_name}/load
+### `POST /api/models/{model_name}/load`
 
 모델 로드
 
-### POST /api/models/unload
+### `POST /api/models/unload`
 
 현재 모델 언로드
 
-## 지원 모델
+### `GET /api/styles`
 
-| 모델 | 설명 | VRAM |
-|------|------|------|
-| `z-image` | Tongyi Z-Image 고품질 | ~16GB |
-| `z-image-turbo` | Z-Image 빠른 버전 (8 steps) | ~12GB |
-| `flux-schnell` | FLUX.1 Schnell | ~12GB |
-| `sdxl` | Stable Diffusion XL | ~8GB |
+스타일 프리셋 목록
 
-## x-bot 연동
+### `POST /api/jobs/submit`
 
-x-bot에서 이 서버 호출:
+비동기 작업 제출 (Redis + SAQ)
 
-```typescript
-const response = await fetch('http://localhost:8002/api/generate', {
-  method: 'POST',
-  headers: { 'Content-Type': 'application/json' },
-  body: JSON.stringify({
-    prompt: 'anime girl',
-    model: 'z-image'
-  })
-});
+### `GET /api/jobs/{job_id}`
 
-const { image_base64 } = await response.json();
-const imageBuffer = Buffer.from(image_base64, 'base64');
+작업 상태 조회
+
+### `GET /health`
+
+헬스 체크
+
+## LoRA
+
+`loras/` 폴더에 `.safetensors` 파일을 넣고 요청 시 `lora` 파라미터로 지정.
+
+```json
+{
+  "prompt": "...",
+  "lora": "ClearHandsXL-v2.safetensors",
+  "lora_scale": 0.8
+}
 ```
-# local-image-hub
+
+## 배치 스크립트
+
+`scripts/` 폴더에 배치 생성 스크립트가 있다. 서버가 실행 중인 상태에서 사용.
+
+```bash
+python scripts/pale_aqua_test.py
+python scripts/zimage_anime.py
+```
+
+## Output 구조
+
+생성된 이미지는 `outputs/` 폴더에 날짜별로 저장된다.
+
+```
+outputs/
+├── 2026-02-04/
+│   ├── animagine-xl-4_153012_1234567.webp
+│   └── noobai-xl-vpred_160045_9876543.webp
+├── 20260204_pale_aqua_v2/
+│   └── v2_frieren_behind_1234567.webp
+└── ...
+```
+
+## 프로젝트 구조
+
+```
+app/
+├── main.py              # FastAPI 엔트리포인트
+├── models/
+│   └── manager.py       # 모델 로드/생성 관리
+├── providers/
+│   └── nai.py           # NovelAI API 클라이언트
+├── presets/
+│   └── styles.py        # 스타일 프리셋 (22개+)
+├── queue/
+│   ├── jobs.py          # 비동기 작업 핸들러
+│   └── worker.py        # SAQ 워커
+├── routers/
+│   ├── generate.py      # 이미지 생성 엔드포인트
+│   └── jobs.py          # 비동기 작업 큐 엔드포인트
+└── schemas/
+    └── __init__.py      # Pydantic 모델
+scripts/                 # 배치 생성 스크립트
+loras/                   # LoRA 어댑터
+outputs/                 # 생성 이미지 저장
+```
+
+## 기술 스택
+
+- **Framework**: FastAPI + Uvicorn
+- **ML**: PyTorch, Diffusers, Transformers, Accelerate
+- **Queue**: SAQ + Redis
+- **Package Manager**: uv
