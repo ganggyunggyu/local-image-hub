@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(curl:*)",
+      "Bash(for i in 1 2 3)",
+      "Bash(do curl -s -X POST \"http://localhost:8002/api/generate\" -H \"Content-Type: application/json\" -d \"{\"\"prompt\"\": \"\"1girl, oshino shinobu, long blonde hair, golden eyes, vampire fangs, white dress, holding donut, smug expression, head tilt, upper body\"\", \"\"negative_prompt\"\": \"\"lowres, bad anatomy, bad hands, text, signature\"\", \"\"style\"\": \"\"watercolor_sketch\"\", \"\"width\"\": 832, \"\"height\"\": 1216, \"\"filename\"\": \"\"shinobu_ethereal_$i\"\"}\")",
+      "Bash(done)"
+    ]
+  }
+}
