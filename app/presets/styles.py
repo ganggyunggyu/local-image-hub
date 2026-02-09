@@ -7,11 +7,31 @@ STYLES = {
     "pale_aqua": {
         "name": "페일 아쿠아",
         "description": "투명 수채 + 연한 블루톤 + 깔끔한 선화 + 소프트 하이라이트",
-        "prompt_suffix": "soft illustration, clean thin lineart, pale blue tones, light pastel colors, transparent watercolor shading, soft highlights, luminous skin, airy atmosphere, simple gradient background, delicate coloring, white and blue palette",
+        "prompt_suffix": "soft illustration, clean lineart, pale blue tones, pastel colors, watercolor shading, soft highlights, simple background",
         "negative_suffix": "dark, gritty, harsh shadows, oversaturated, thick outlines, heavy shading, rough sketch, muddy colors, complex background, extra fingers, missing fingers, fused fingers, too many fingers, deformed hands, bad hands, malformed hands, wrong number of fingers, mutated hands, poorly drawn hands, six fingers",
         "recommended": {
             "steps": 32,
             "guidance_scale": 4.5,
+        },
+    },
+    "mono_halftone": {
+        "name": "모노 하프톤",
+        "description": "모노크롬 + 하프톤 도트 + 핑크 눈 악센트 + 하이콘트라스트",
+        "prompt_suffix": "monochrome, greyscale, halftone dots, high contrast, sketch lineart, loose strokes, glossy texture, pink eyes color accent, stylish, edgy, simple halftone background, manga style shading",
+        "negative_suffix": "full color, soft shading, watercolor, pastel, low contrast, blurry, realistic, detailed background",
+        "recommended": {
+            "steps": 28,
+            "guidance_scale": 6.0,
+        },
+    },
+    "chibi_sketch": {
+        "name": "치비 스케치",
+        "description": "SD등신 + 심플 스케치 + 소프트 컬러 + 동물 후드",
+        "prompt_suffix": "chibi, super deformed, 2heads, simple sketch, soft coloring, white background, cute, minimal lineart",
+        "negative_suffix": "realistic proportions, detailed background, complex shading, mature, tall",
+        "recommended": {
+            "steps": 28,
+            "guidance_scale": 5.0,
         },
     },
     "cozy_gouache": {
@@ -216,12 +236,12 @@ STYLES = {
     },
     "pop_fanart": {
         "name": "팝 팬아트",
-        "description": "굵은 선화 + 플랫 컬러 + 볼 홍조 + 심플 배경",
-        "prompt_suffix": "bold outlines, flat coloring, vivid colors, blush on cheeks, nose highlight, simple white background, pop art style, clean",
-        "negative_suffix": "sketch, rough, watercolor, gradient shading, complex background, realistic",
+        "description": "깔끔한 선화 + 플랫 컬러 + 볼 홍조 + 심플 배경",
+        "prompt_suffix": "clean lineart, flat color, no shading, blush stickers, nose highlight, simple background, vivid colors, solo",
+        "negative_suffix": "sketch, rough, watercolor, gradient, complex background, realistic, abstract, multiple girls",
         "recommended": {
             "steps": 28,
-            "guidance_scale": 5.5,
+            "guidance_scale": 5.0,
         },
     },
     "gyaru_peace": {
@@ -332,6 +352,26 @@ STYLES = {
         "recommended": {
             "steps": 35,
             "guidance_scale": 5.5,
+        },
+    },
+    "split_sketch": {
+        "name": "스플릿 스케치",
+        "description": "화면 2분할 - 상단 채색완료 / 하단 채색전 스케치",
+        "prompt_suffix": "split screen, upper half fully colored, lower half monochrome lineart sketch, close up face, large expressive eyes, same character, artistic, no text",
+        "negative_suffix": "text, label, watermark, signature, uniform style throughout, blurry, realistic, photorealistic, different characters",
+        "recommended": {
+            "steps": 35,
+            "guidance_scale": 6.5,
+        },
+    },
+    "waterful": {
+        "name": "워터풀",
+        "description": "물감이 흐르는듯한 수채화, 맑고 투명한 느낌",
+        "prompt_suffix": "watercolor, flowing colors, wet on wet, soft edges, transparent washes, dreamy, delicate, paper texture, soft lighting",
+        "negative_suffix": "harsh lines, digital, sharp edges, oversaturated, dark",
+        "recommended": {
+            "steps": 32,
+            "guidance_scale": 4.5,
         },
     },
 }
