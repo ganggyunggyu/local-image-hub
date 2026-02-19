@@ -6,12 +6,12 @@
 STYLES = {
     "pale_aqua": {
         "name": "페일 아쿠아",
-        "description": "투명 수채 + 연한 블루톤 + 깔끔한 선화 + 소프트 하이라이트",
-        "prompt_suffix": "soft illustration, clean lineart, pale blue tones, pastel colors, watercolor shading, soft highlights, simple background",
-        "negative_suffix": "dark, gritty, harsh shadows, oversaturated, thick outlines, heavy shading, rough sketch, muddy colors, complex background, extra fingers, missing fingers, fused fingers, too many fingers, deformed hands, bad hands, malformed hands, wrong number of fingers, mutated hands, poorly drawn hands, six fingers",
+        "description": "투명 수채 + 청량한 질감 + 깔끔한 선화 + 선명한 캐릭터",
+        "prompt_suffix": "soft illustration, clean lineart, light aqua tint, pastel colors, delicate shading, soft highlights, simple background, sharp face details, clear eyes, defined features, natural skin tones",
+        "negative_suffix": "dark, gritty, harsh shadows, oversaturated, thick outlines, heavy shading, rough sketch, muddy colors, complex background, blurry, out of focus, fuzzy, unfocused face, blue skin, unnatural coloring, monochrome blue, extra fingers, missing fingers, fused fingers, too many fingers, deformed hands, bad hands, malformed hands, wrong number of fingers, mutated hands, poorly drawn hands, six fingers",
         "recommended": {
-            "steps": 32,
-            "guidance_scale": 4.5,
+            "steps": 28,
+            "guidance_scale": 5.5,
         },
     },
     "mono_halftone": {
@@ -25,22 +25,22 @@ STYLES = {
         },
     },
     "chibi_sketch": {
-        "name": "치비 스케치",
-        "description": "SD등신 + 심플 스케치 + 소프트 컬러 + 동물 후드",
-        "prompt_suffix": "chibi, super deformed, 2heads, simple sketch, soft coloring, white background, cute, minimal lineart",
-        "negative_suffix": "realistic proportions, detailed background, complex shading, mature, tall",
+        "name": "치비 굿즈",
+        "description": "SD등신 귀여운 치비 + 플랫 채색 + 심플 배경",
+        "prompt_suffix": "chibi, full body, simple background, white background, cute, colorful, flat color, clean lineart, solo focus",
+        "negative_suffix": "realistic proportions, detailed background, complex shading, mature, tall, multiple views, 4koma, grid, collage, text",
         "recommended": {
             "steps": 28,
-            "guidance_scale": 5.0,
+            "guidance_scale": 5.5,
         },
     },
     "cozy_gouache": {
         "name": "코지 과슈",
-        "description": "러프 스케치 + 과슈 워시 + 뮤트 색상 + 따뜻한 분위기",
-        "prompt_suffix": "rough sketch, gouache wash, muted colors, paper texture, cozy atmosphere, warm tones, visible brushstrokes",
-        "negative_suffix": "clean lineart, digital, glossy, saturated, neon",
+        "description": "수채화 번짐 + 부드러운 경계 + 붓터치 + 투명 레이어",
+        "prompt_suffix": "watercolor, wet-on-wet, soft edges, visible brushstrokes, painterly, transparent layers, paper texture, traditional media",
+        "negative_suffix": "clean lineart, sharp edges, digital, flat color, anime cel shading, hard edges",
         "recommended": {
-            "steps": 32,
+            "steps": 28,
             "guidance_scale": 5.0,
         },
     },
@@ -50,7 +50,7 @@ STYLES = {
         "prompt_suffix": "ultra fine lines, barely visible sketch, faint grey pencil, pale watercolor wash, washed out colors, desaturated, paper texture, melancholic, nostalgic atmosphere, soft diffused light, ethereal",
         "negative_suffix": "thick lines, bold outlines, heavy lineart, vibrant colors, saturated, high contrast, sharp, 3d, digital, text, signature",
         "recommended": {
-            "steps": 35,
+            "steps": 28,
             "guidance_scale": 4.0,
         },
     },
@@ -70,7 +70,7 @@ STYLES = {
         "prompt_suffix": "ufotable, dynamic pose, glowing effects, dramatic lighting",
         "negative_suffix": "static, flat lighting",
         "recommended": {
-            "steps": 30,
+            "steps": 28,
             "guidance_scale": 6.0,
         },
     },
@@ -80,7 +80,7 @@ STYLES = {
         "prompt_suffix": "makoto shinkai, beautiful sky, lens flare, atmospheric, cinematic",
         "negative_suffix": "simple background, flat colors",
         "recommended": {
-            "steps": 32,
+            "steps": 28,
             "guidance_scale": 5.5,
         },
     },
@@ -90,7 +90,7 @@ STYLES = {
         "prompt_suffix": "studio ghibli, warm colors, peaceful, nostalgic, nature",
         "negative_suffix": "dark, gritty, cyberpunk",
         "recommended": {
-            "steps": 30,
+            "steps": 28,
             "guidance_scale": 5.0,
         },
     },
@@ -110,7 +110,7 @@ STYLES = {
         "prompt_suffix": "mappa style, cinematic lighting, dark atmosphere, intense",
         "negative_suffix": "bright, cheerful, flat",
         "recommended": {
-            "steps": 30,
+            "steps": 28,
             "guidance_scale": 5.5,
         },
     },
@@ -120,7 +120,7 @@ STYLES = {
         "prompt_suffix": "shaft style, head tilt, abstract background, high contrast, artistic",
         "negative_suffix": "realistic background",
         "recommended": {
-            "steps": 30,
+            "steps": 28,
             "guidance_scale": 6.0,
         },
     },
@@ -160,7 +160,7 @@ STYLES = {
         "prompt_suffix": "arknights, dystopian, industrial, dark atmosphere",
         "negative_suffix": "bright, cheerful",
         "recommended": {
-            "steps": 30,
+            "steps": 28,
             "guidance_scale": 5.5,
         },
     },
@@ -170,7 +170,7 @@ STYLES = {
         "prompt_suffix": "fate series, noble, elegant, dramatic, historical fantasy",
         "negative_suffix": "modern, casual",
         "recommended": {
-            "steps": 30,
+            "steps": 28,
             "guidance_scale": 5.5,
         },
     },
@@ -180,7 +180,7 @@ STYLES = {
         "prompt_suffix": "cyberpunk, neon lights, futuristic, night, rain, high tech",
         "negative_suffix": "daytime, nature, fantasy",
         "recommended": {
-            "steps": 30,
+            "steps": 28,
             "guidance_scale": 6.0,
         },
     },
@@ -200,7 +200,7 @@ STYLES = {
         "prompt_suffix": "90s anime aesthetic, inuyasha style, cel shaded, nostalgic, dreamy atmosphere, soft diffused lighting, feudal japan, hand-drawn feel, warm earthy tones, film grain",
         "negative_suffix": "modern anime, clean digital, 3d, photorealistic, neon colors, sharp lines",
         "recommended": {
-            "steps": 32,
+            "steps": 28,
             "guidance_scale": 5.0,
         },
     },
@@ -210,7 +210,7 @@ STYLES = {
         "prompt_suffix": "pencil sketch, light watercolor wash, sepia tones, backlit, soft glow, dreamy, paper texture, faded colors",
         "negative_suffix": "digital, saturated colors, dark, harsh shadows, clean lineart",
         "recommended": {
-            "steps": 32,
+            "steps": 28,
             "guidance_scale": 5.0,
         },
     },
@@ -250,7 +250,7 @@ STYLES = {
         "prompt_suffix": "close-up, upper body, bright lighting, cute, cheerful",
         "negative_suffix": "extra fingers, missing fingers, fused fingers, deformed hands, bad hands, poorly drawn hands, wrong number of fingers, six fingers, mutated hands, malformed hands, twisted fingers",
         "recommended": {
-            "steps": 35,
+            "steps": 28,
             "guidance_scale": 5.5,
         },
     },
@@ -260,7 +260,7 @@ STYLES = {
         "prompt_suffix": "close-up, upper body, bright lighting, cheerful, energetic",
         "negative_suffix": "extra fingers, missing fingers, fused fingers, deformed hands, bad hands, poorly drawn hands, wrong number of fingers, six fingers, mutated hands, malformed hands, twisted fingers",
         "recommended": {
-            "steps": 35,
+            "steps": 28,
             "guidance_scale": 5.5,
         },
     },
@@ -270,7 +270,7 @@ STYLES = {
         "prompt_suffix": "close-up, upper body, bright, cool",
         "negative_suffix": "extra fingers, missing fingers, fused fingers, deformed hands, bad hands, poorly drawn hands, wrong number of fingers, six fingers, mutated hands, malformed hands, twisted fingers",
         "recommended": {
-            "steps": 35,
+            "steps": 28,
             "guidance_scale": 5.5,
         },
     },
@@ -280,7 +280,7 @@ STYLES = {
         "prompt_suffix": "close-up, upper body, bright, cute, soft lighting",
         "negative_suffix": "extra fingers, missing fingers, fused fingers, deformed hands, bad hands, poorly drawn hands, wrong number of fingers, six fingers, mutated hands, malformed hands, twisted fingers",
         "recommended": {
-            "steps": 35,
+            "steps": 28,
             "guidance_scale": 5.5,
         },
     },
@@ -290,7 +290,7 @@ STYLES = {
         "prompt_suffix": "close-up, upper body, bright, cute, adorable",
         "negative_suffix": "extra fingers, missing fingers, fused fingers, deformed hands, bad hands, poorly drawn hands, wrong number of fingers, six fingers, mutated hands, malformed hands, twisted fingers",
         "recommended": {
-            "steps": 35,
+            "steps": 28,
             "guidance_scale": 5.5,
         },
     },
@@ -300,7 +300,7 @@ STYLES = {
         "prompt_suffix": "close-up, upper body, bright, soft lighting",
         "negative_suffix": "extra fingers, missing fingers, fused fingers, deformed hands, bad hands, poorly drawn hands, wrong number of fingers, six fingers, mutated hands, malformed hands, twisted fingers",
         "recommended": {
-            "steps": 35,
+            "steps": 28,
             "guidance_scale": 5.5,
         },
     },
@@ -310,7 +310,7 @@ STYLES = {
         "prompt_suffix": "close-up, upper body, bright, cute, lovely",
         "negative_suffix": "extra fingers, missing fingers, fused fingers, deformed hands, bad hands, poorly drawn hands, wrong number of fingers, six fingers, mutated hands, malformed hands, twisted fingers",
         "recommended": {
-            "steps": 35,
+            "steps": 28,
             "guidance_scale": 5.5,
         },
     },
@@ -320,7 +320,7 @@ STYLES = {
         "prompt_suffix": "close-up, upper body, cool lighting, confident",
         "negative_suffix": "extra fingers, missing fingers, fused fingers, deformed hands, bad hands, poorly drawn hands, wrong number of fingers, six fingers, mutated hands, malformed hands, twisted fingers",
         "recommended": {
-            "steps": 35,
+            "steps": 28,
             "guidance_scale": 5.5,
         },
     },
@@ -330,7 +330,7 @@ STYLES = {
         "prompt_suffix": "close-up, upper body, cute, playful, bright",
         "negative_suffix": "extra fingers, missing fingers, fused fingers, deformed hands, bad hands, poorly drawn hands, wrong number of fingers, six fingers, mutated hands, malformed hands, twisted fingers",
         "recommended": {
-            "steps": 35,
+            "steps": 28,
             "guidance_scale": 5.5,
         },
     },
@@ -340,7 +340,7 @@ STYLES = {
         "prompt_suffix": "close-up, upper body, bright, energetic",
         "negative_suffix": "extra fingers, missing fingers, fused fingers, deformed hands, bad hands, poorly drawn hands, wrong number of fingers, six fingers, mutated hands, malformed hands, twisted fingers",
         "recommended": {
-            "steps": 35,
+            "steps": 28,
             "guidance_scale": 5.5,
         },
     },
@@ -350,18 +350,18 @@ STYLES = {
         "prompt_suffix": "close-up, upper body, bright, friendly, warm",
         "negative_suffix": "extra fingers, missing fingers, fused fingers, deformed hands, bad hands, poorly drawn hands, wrong number of fingers, six fingers, mutated hands, malformed hands, twisted fingers",
         "recommended": {
-            "steps": 35,
+            "steps": 28,
             "guidance_scale": 5.5,
         },
     },
     "split_sketch": {
         "name": "스플릿 스케치",
-        "description": "화면 2분할 - 상단 채색완료 / 하단 채색전 스케치",
-        "prompt_suffix": "split screen, upper half fully colored, lower half monochrome lineart sketch, close up face, large expressive eyes, same character, artistic, no text",
-        "negative_suffix": "text, label, watermark, signature, uniform style throughout, blurry, realistic, photorealistic, different characters",
+        "description": "화면 2분할 - 상단 채색완료 / 하단 동일구도 스케치",
+        "prompt_suffix": "split screen comparison, vertical split, top colored bottom lineart, same exact composition, identical pose, mirrored layout, upper fully colored, lower monochrome sketch only, close up face, large expressive eyes, same character same angle, process comparison, no text",
+        "negative_suffix": "text, label, watermark, signature, different poses, different angles, different compositions, different characters, blurry, realistic, photorealistic",
         "recommended": {
-            "steps": 35,
-            "guidance_scale": 6.5,
+            "steps": 28,
+            "guidance_scale": 7.0,
         },
     },
     "waterful": {
@@ -370,8 +370,18 @@ STYLES = {
         "prompt_suffix": "watercolor, flowing colors, wet on wet, soft edges, transparent washes, dreamy, delicate, paper texture, soft lighting",
         "negative_suffix": "harsh lines, digital, sharp edges, oversaturated, dark",
         "recommended": {
-            "steps": 32,
+            "steps": 28,
             "guidance_scale": 4.5,
+        },
+    },
+    "retro_glitch": {
+        "name": "레트로 글리치",
+        "description": "모자이크 + 디더링 + 글리치 + 색수차 + 레트로 디지털",
+        "prompt_suffix": "mosaic, dithering, window (computing), glitch, shaded face, diamond-shaped pupils, paper texture, chromatic aberration, no text, retro digital, pixel aesthetic, simple background",
+        "negative_suffix": "-3::realistic::, photorealistic, smooth shading, clean, modern, 3d render",
+        "recommended": {
+            "steps": 28,
+            "guidance_scale": 6.0,
         },
     },
 }
