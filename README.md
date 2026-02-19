@@ -136,6 +136,23 @@ make dev-all
 
 헬스 체크
 
+### `POST /api/gallery/index`
+
+`outputs/` 폴더를 스캔해서 `outputs/metadata.sqlite` 메타 인덱스 생성/갱신
+
+### `GET /api/gallery`
+
+메타 인덱스 기반 이미지 검색
+
+Query:
+- `q` (파일경로/프롬프트/배치명 LIKE 검색)
+- `model`, `style`, `batch_name`
+- `limit` (기본 50), `offset`
+
+### `GET /api/gallery/stats`
+
+메타 통계 (전체 개수/용량, 모델별/배치별 카운트)
+
 ## LoRA
 
 `loras/` 폴더에 `.safetensors` 파일을 넣고 요청 시 `lora` 파라미터로 지정.

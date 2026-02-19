@@ -10,6 +10,7 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from app.routers.generate import router as generate_router
 from app.routers.jobs import router as jobs_router
+from app.routers.gallery import router as gallery_router
 
 
 @asynccontextmanager
@@ -38,6 +39,7 @@ app.add_middleware(
 
 app.include_router(generate_router)
 app.include_router(jobs_router)
+app.include_router(gallery_router)
 
 
 @app.get("/health")

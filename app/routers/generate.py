@@ -9,6 +9,7 @@ from fastapi import APIRouter, HTTPException
 from app.schemas import GenerateRequest, GenerateResponse, ModelsResponse, ModelInfo
 from app.models.manager import model_manager
 from app.presets import apply_style, list_styles
+from app.gallery_store import upsert_metadata
 
 router = APIRouter(prefix="/api", tags=["generate"])
 
@@ -16,8 +17,8 @@ OUTPUTS_DIR = Path(__file__).parent.parent.parent / "outputs"
 OUTPUTS_DIR.mkdir(exist_ok=True)
 
 
-def save_image(image_base64: str, seed: int, model: str, custom_filename: str | None = None) -> str:
-    """이미지를 outputs/YYYY-MM-DD 폴더에 저장하고 파일명 반환"""
+def save_image(image_base64: str, seed: int, model: str, custom_filename: str | None = None) -> tuple[str, Path]:
+    """이미지를 outputs/YYYY-MM-DD 폴더에 저장하고 (상대경로, 절대경로) 반환"""
     today = datetime.now().strftime("%Y-%m-%d")
     day_dir = OUTPUTS_DIR / today
     day_dir.mkdir(exist_ok=True)
@@ -32,7 +33,7 @@ def save_image(image_base64: str, seed: int, model: str, custom_filename: str | 
     img_data = b64decode(image_base64)
     filepath.write_bytes(img_data)
 
-    return f"{today}/{filename}"
+    return f"{today}/{filename}", filepath
 
 
 async def generate_with_nai(request: GenerateRequest) -> tuple[str, int]:
@@ -99,7 +100,34 @@ async def generate_image(request: GenerateRequest) -> GenerateResponse:
 
         filename = None
         if request.save_to_disk:
-            filename = save_image(image_base64, seed, request.model, request.filename)
+            filename, saved_path = save_image(image_base64, seed, request.model, request.filename)
+            try:
+                metadata = {
+                    "rel_path": filename,
+                    "created_at": datetime.now().isoformat(),
+                    "modified_at": datetime.now().isoformat(),
+                    "file_size": saved_path.stat().st_size,
+                    "ext": saved_path.suffix.lower(),
+                    "model": request.model,
+                    "seed": seed,
+                    "style": request.style,
+                    "provider": request.provider,
+                    "prompt": request.prompt,
+                    "negative_prompt": request.negative_prompt,
+                    "width": request.width,
+                    "height": request.height,
+                    "steps": steps,
+                    "guidance_scale": guidance_scale,
+                    "lora": request.lora,
+                    "lora_scale": request.lora_scale,
+                    "batch_name": Path(filename).parent.as_posix(),
+                    "source_script": None,
+                    "tags": None,
+                    "meta_json": None,
+                }
+                upsert_metadata(metadata)
+            except Exception:
+                pass
 
         return GenerateResponse(
             success=True,
