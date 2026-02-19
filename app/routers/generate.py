@@ -1,3 +1,4 @@
+import asyncio
 import os
 from base64 import b64decode
 from datetime import datetime
@@ -68,9 +69,22 @@ async def generate_image(request: GenerateRequest) -> GenerateResponse:
                 guidance_scale = recommended.get("guidance_scale", guidance_scale)
 
         if request.provider == "nai":
-            image_base64, seed = await generate_with_nai(request)
+            from app.providers.nai import get_nai_client
+
+            nai_client = get_nai_client()
+            image_base64, seed = await nai_client.generate(
+                prompt=prompt,
+                negative_prompt=negative_prompt,
+                width=request.width,
+                height=request.height,
+                steps=steps,
+                guidance_scale=guidance_scale,
+                seed=request.seed,
+                model=request.model,
+            )
         else:
-            image_base64, seed = model_manager.generate(
+            image_base64, seed = await asyncio.to_thread(
+                model_manager.generate,
                 prompt=prompt,
                 negative_prompt=negative_prompt,
                 width=request.width,

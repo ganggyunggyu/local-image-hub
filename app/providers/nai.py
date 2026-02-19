@@ -13,6 +13,9 @@ class NAIClient:
     MODELS = {
         "nai-v3": "nai-diffusion-3",
         "nai-v4": "nai-diffusion-4-curated-preview",
+        "nai-v4-full": "nai-diffusion-4-full",
+        "nai-v4.5": "nai-diffusion-4-5-curated",
+        "nai-v4.5-full": "nai-diffusion-4-5-full",
     }
 
     def __init__(self):
@@ -42,23 +45,59 @@ class NAIClient:
 
         model_name = self.MODELS.get(model, model)
 
-        payload = {
-            "input": prompt,
-            "model": model_name,
-            "action": "generate",
-            "parameters": {
-                "width": width,
-                "height": height,
-                "scale": guidance_scale,
-                "sampler": "k_euler_ancestral",
-                "steps": steps,
-                "seed": seed,
-                "n_samples": 1,
-                "negative_prompt": negative_prompt,
-                "qualityToggle": True,
-                "ucPreset": 0,
-            },
-        }
+        is_v4 = "diffusion-4" in model_name
+
+        if is_v4:
+            payload = {
+                "input": prompt,
+                "model": model_name,
+                "action": "generate",
+                "parameters": {
+                    "params_version": 3,
+                    "width": width,
+                    "height": height,
+                    "scale": guidance_scale,
+                    "sampler": "k_euler_ancestral",
+                    "steps": steps,
+                    "seed": seed,
+                    "n_samples": 1,
+                    "ucPreset": 0,
+                    "qualityToggle": True,
+                    "characterPrompts": [],
+                    "v4_prompt": {
+                        "caption": {
+                            "base_caption": prompt,
+                            "char_captions": [],
+                        },
+                        "use_coords": False,
+                        "use_order": True,
+                    },
+                    "v4_negative_prompt": {
+                        "caption": {
+                            "base_caption": negative_prompt or "blurry, lowres, error",
+                            "char_captions": [],
+                        },
+                    },
+                },
+            }
+        else:
+            payload = {
+                "input": prompt,
+                "model": model_name,
+                "action": "generate",
+                "parameters": {
+                    "width": width,
+                    "height": height,
+                    "scale": guidance_scale,
+                    "sampler": "k_euler_ancestral",
+                    "steps": steps,
+                    "seed": seed,
+                    "n_samples": 1,
+                    "negative_prompt": negative_prompt,
+                    "qualityToggle": True,
+                    "ucPreset": 0,
+                },
+            }
 
         async with httpx.AsyncClient(timeout=120.0) as client:
             response = await client.post(
@@ -79,8 +118,21 @@ class NAIClient:
     def get_available_models(self) -> list[dict]:
         return [
             {"name": "nai-v3", "description": "NovelAI Diffusion V3"},
-            {"name": "nai-v4", "description": "NovelAI Diffusion V4 (Preview)"},
+            {"name": "nai-v4", "description": "NovelAI Diffusion V4 Curated (Preview)"},
+            {"name": "nai-v4-full", "description": "NovelAI Diffusion V4 Full"},
+            {"name": "nai-v4.5", "description": "NovelAI Diffusion V4.5 Curated"},
+            {"name": "nai-v4.5-full", "description": "NovelAI Diffusion V4.5 Full"},
         ]
+
+    async def get_subscription(self) -> dict:
+        """구독 정보 및 Anlas 잔액 조회"""
+        async with httpx.AsyncClient(timeout=30.0) as client:
+            response = await client.get(
+                "https://api.novelai.net/user/subscription",
+                headers=self._get_headers(),
+            )
+            response.raise_for_status()
+            return response.json()
 
 
 nai_client: NAIClient | None = None

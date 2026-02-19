@@ -9,3 +9,4 @@ safetensors>=0.4.0
 pillow>=10.0.0
 huggingface-hub>=0.20.0
 sentencepiece>=0.1.99
+python-dotenv
