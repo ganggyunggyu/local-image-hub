@@ -1,6 +1,4 @@
-"""하네카와 & 블랙 하네카와 테스트 (10장)
-하네카와 5장 + 블랙 하네카와 5장
-"""
+"""하네카와 츠바사 & 블랙 하네카와 다양한 구도"""
 
 import asyncio
 import httpx
@@ -11,31 +9,63 @@ from base64 import b64decode
 API_URL = "http://localhost:8002/api/generate"
 
 TODAY = datetime.now().strftime("%Y%m%d")
-OUTPUT_DIR = Path(__file__).parent.parent / "outputs" / f"{TODAY}_hanekawa_test"
+OUTPUT_DIR = Path(__file__).parent.parent / "outputs" / f"{TODAY}_hanekawa"
 OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 
-# 하네카와 츠바사 (일반)
-TSUBASA = "hanekawa tsubasa, monogatari, black hair, long hair, glasses, purple eyes, school uniform"
+# 캐릭터 정의
+CHARACTERS = {
+    "black_hanekawa": {
+        "tags": "black hanekawa, monogatari \\(series\\), nekomonogatari, white hair, long hair, cat ears, animal ears, yellow eyes, slit pupils, pale skin",
+        "name": "블랙 하네카와",
+    },
+    "tsubasa": {
+        "tags": "hanekawa tsubasa, monogatari \\(series\\), bakemonogatari, black hair, long hair, braids, twin braids, glasses, purple eyes",
+        "name": "하네카와 츠바사",
+    },
+}
 
-# 블랙 하네카와 (츠바사 캣)
-BLACK = "black hanekawa, monogatari, white hair, long hair, golden eyes, slit pupils, cat ears, pale skin"
-
-NEG = "extra fingers, fused fingers, deformed hands, bad hands, bad anatomy, poorly drawn hands"
-
-JOBS = [
-    # 하네카와 5장
-    {"prompt": f"1girl, {TSUBASA}, classroom, window, sunlight, sitting", "alias": "tsubasa_01", "style": "pale_aqua"},
-    {"prompt": f"1girl, {TSUBASA}, library, books, reading, quiet", "alias": "tsubasa_02", "style": "pale_aqua"},
-    {"prompt": f"1girl, {TSUBASA}, rooftop, sunset, wind, standing", "alias": "tsubasa_03", "style": "pale_aqua"},
-    {"prompt": f"1girl, {TSUBASA}, night, street, walking, city lights", "alias": "tsubasa_04", "style": "pale_aqua"},
-    {"prompt": f"1girl, {TSUBASA}, close up, portrait, looking at viewer, smile", "alias": "tsubasa_05", "style": "pale_aqua"},
-    # 블랙 하네카와 5장
-    {"prompt": f"1girl, {BLACK}, night, moonlight, rooftop, standing", "alias": "black_01", "style": "pale_aqua"},
-    {"prompt": f"1girl, {BLACK}, street, night, neon lights, walking", "alias": "black_02", "style": "pale_aqua"},
-    {"prompt": f"1girl, {BLACK}, close up, portrait, looking at viewer, smirk", "alias": "black_03", "style": "pale_aqua"},
-    {"prompt": f"1girl, {BLACK}, sitting, night, window, moon", "alias": "black_04", "style": "pale_aqua"},
-    {"prompt": f"1girl, {BLACK}, standing, alley, night, mysterious", "alias": "black_05", "style": "pale_aqua"},
+# 다양한 구도/상황
+COMPOSITIONS = [
+    ("smile, looking at viewer, upper body, school uniform", "교복"),
+    ("from side, profile, moonlight, night sky, outdoor", "달빛"),
+    ("sitting, window, curtains, indoor, peaceful", "창가"),
+    ("lying down, bed, white sheets, relaxed", "침대"),
+    ("from below, looking down at viewer, confident, smirk", "올려다보기"),
+    ("walking, street, city lights, night, dynamic pose", "야경"),
+    ("close up, face focus, detailed eyes, gentle expression", "클로즈업"),
+    ("back view, looking back, wind, hair flowing", "뒤돌아보기"),
+    ("standing, full body, casual clothes, hands in pockets", "전신"),
+    ("reading book, library, bookshelf, focused", "독서"),
 ]
+
+STYLES = ["pale_aqua", "monogatari", "waterful"]
+
+# 블랙 하네카와 10장 + 하네카와 츠바사 10장 = 20장
+JOBS = []
+
+# 블랙 하네카와 - 10장
+for i, (comp, comp_name) in enumerate(COMPOSITIONS):
+    style = STYLES[i % len(STYLES)]
+    char = CHARACTERS["black_hanekawa"]
+    JOBS.append({
+        "prompt": f"1girl, {char['tags']}, {comp}, masterpiece, best quality",
+        "style": style,
+        "alias": f"black_hanekawa_{i+1:02d}_{style}",
+        "char_name": char['name'],
+        "comp_name": comp_name,
+    })
+
+# 하네카와 츠바사 - 10장
+for i, (comp, comp_name) in enumerate(COMPOSITIONS):
+    style = STYLES[i % len(STYLES)]
+    char = CHARACTERS["tsubasa"]
+    JOBS.append({
+        "prompt": f"1girl, {char['tags']}, {comp}, masterpiece, best quality",
+        "style": style,
+        "alias": f"tsubasa_{i+1:02d}_{style}",
+        "char_name": char['name'],
+        "comp_name": comp_name,
+    })
 
 TOTAL = len(JOBS)
 
@@ -43,37 +73,39 @@ TOTAL = len(JOBS)
 async def generate(client, idx, job):
     payload = {
         "prompt": job["prompt"],
-        "negative_prompt": NEG,
+        "negative_prompt": "",
         "width": 832,
-        "height": 1216,
-        "model": "animagine-xl-4",
+        "height": 1024,
+        "steps": 28,
+        "provider": "nai",
+        "model": "nai-v4.5-full",
         "style": job["style"],
         "save_to_disk": False,
     }
 
     try:
-        r = await client.post(API_URL, json=payload, timeout=600.0)
+        r = await client.post(API_URL, json=payload, timeout=180.0)
         data = r.json()
         if data.get("success") and data.get("image_base64"):
             seed = data.get("seed", 0)
             fp = OUTPUT_DIR / f"{job['alias']}_{seed}.webp"
             fp.write_bytes(b64decode(data["image_base64"]))
-            print(f"[{idx:02d}/{TOTAL}] OK {job['alias']} [{job['style']}] (seed: {seed})", flush=True)
+            print(f"[{idx:02d}/{TOTAL}] OK {job['char_name']} - {job['style']} ({job['comp_name']})")
             return True
         else:
-            print(f"[{idx:02d}/{TOTAL}] FAIL {job['alias']}: {data.get('error', '?')}", flush=True)
+            print(f"[{idx:02d}/{TOTAL}] FAIL {job['alias']}: {data.get('error', '?')[:50]}")
             return False
     except Exception as e:
-        print(f"[{idx:02d}/{TOTAL}] ERROR {job['alias']}: {e}", flush=True)
+        print(f"[{idx:02d}/{TOTAL}] ERROR {job['alias']}: {e}")
         return False
 
 
 async def main():
     ok = fail = 0
-    print("하네카와 & 블랙 하네카와 테스트 10장", flush=True)
-    print("하네카와 5장 + 블랙 하네카와 5장", flush=True)
-    print(f"저장: {OUTPUT_DIR}", flush=True)
-    print("=" * 60, flush=True)
+    print(f"하네카와 테스트 {TOTAL}장 (블랙 하네카와 10장 + 츠바사 10장)")
+    print(f"스타일: {', '.join(STYLES)}")
+    print(f"저장: {OUTPUT_DIR}")
+    print("=" * 60)
 
     async with httpx.AsyncClient() as client:
         for i, job in enumerate(JOBS, 1):
@@ -81,11 +113,10 @@ async def main():
                 ok += 1
             else:
                 fail += 1
-            await asyncio.sleep(0.3)
+            await asyncio.sleep(0.5)
 
-    print("=" * 60, flush=True)
-    print(f"완료! 성공: {ok}, 실패: {fail}", flush=True)
-    print(f"저장: {OUTPUT_DIR}", flush=True)
+    print("=" * 60)
+    print(f"완료! 성공: {ok}, 실패: {fail}")
 
 
 if __name__ == "__main__":
