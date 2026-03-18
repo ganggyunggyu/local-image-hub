@@ -34,6 +34,16 @@ STYLES = {
             "guidance_scale": 5.5,
         },
     },
+    "igeol_real": {
+        "name": "이거ㄹㅇ임?",
+        "description": "카톡 리액션 스티커풍 + 큰 둥근 얼굴 + 작은 O입 + 상단 큰 글씨 자리",
+        "prompt_suffix": "kakao reaction sticker style, big round face filling most of the frame, tiny simplified body, face-focused reaction meme, large round glossy eyes with simple highlights, small centered o-mouth, soft blush cheeks, rounded hair shapes framing the face, thick clean outline, bold simple cel shading, soft warm colors, centered portrait, square sticker composition, empty top area for large korean caption, white background, bold silhouette, cute surprised reaction",
+        "negative_suffix": "chibi full-body character, sd character proportions, photorealistic, realistic anatomy, full body, side view, off-center face, asymmetrical eyes, tiny eyes, star-shaped eyes, detailed mouth interior, visible teeth, grim expression, dark background, detailed scenery, painterly texture, gritty shading, horror, speech bubble, rendered text, watermark, extra fingers, bad hands, deformed hands, multiple characters, cluttered background",
+        "recommended": {
+            "steps": 26,
+            "guidance_scale": 6.0,
+        },
+    },
     "cozy_gouache": {
         "name": "코지 과슈",
         "description": "수채화 번짐 + 부드러운 경계 + 붓터치 + 투명 레이어",
@@ -84,16 +94,6 @@ STYLES = {
             "guidance_scale": 5.5,
         },
     },
-    "ghibli": {
-        "name": "지브리",
-        "description": "따뜻한 색감, 자연, 노스탤지어",
-        "prompt_suffix": "studio ghibli, warm colors, peaceful, nostalgic, nature",
-        "negative_suffix": "dark, gritty, cyberpunk",
-        "recommended": {
-            "steps": 28,
-            "guidance_scale": 5.0,
-        },
-    },
     "trigger": {
         "name": "트리거",
         "description": "과장된 액션, 화려한 색감",
@@ -132,6 +132,36 @@ STYLES = {
         "recommended": {
             "steps": 28,
             "guidance_scale": 5.5,
+        },
+    },
+    "zutomayo": {
+        "name": "즛토마요",
+        "description": "저채도 청록-마젠타 야간 조명 + 생활소품 + 초현실 레이어드 도시 MV 무드",
+        "prompt_suffix": "enigmatic j-pop music video still, low-key cinematic anime illustration, teal and cyan shadows, magenta and hot pink highlights, muted deep navy palette, subtle film grain, faint scanline texture, slight chromatic aberration, layered composition with foreground objects and surreal everyday props, urban interior or night city atmosphere, reflective surfaces, symbolic clutter, half-lidded emotional gaze, calm but uncanny mood, stylized anime, clean cel shading with textured overlays, strong colored rim light",
+        "negative_suffix": "photorealistic, 3d render, bright sunny daytime, saturated primary colors, cheerful idol smile, wide open cartoon grin, flat minimal background, generic fantasy armor, pastoral nature scene, empty frame, glossy plastic skin, clean corporate illustration, logo, watermark, text",
+        "recommended": {
+            "steps": 28,
+            "guidance_scale": 5.9,
+        },
+    },
+    "prism_arcana": {
+        "name": "프리즘 아르카나",
+        "description": "보라-분홍 발광 무대 + 음악선 같은 마법 궤적 + 카메라로 손 뻗는 퍼포먼스 구도",
+        "prompt_suffix": "high-energy anime performance illustration, luminous magenta and violet glow, pink prism lighting, musical light trails swirling in the air, sparkles and floating particles, dramatic reach-toward-camera perspective, playful confident expression, sleek fantasy stage outfit, glossy hair with cool blue shadows, crisp cel shading, soft bloom, bright rim light, layered concert-like magical backdrop, stylish motion, polished character focus",
+        "negative_suffix": "photorealistic, gritty dark horror, muted flat lighting, plain white background, static standing pose, heavy medieval armor, cluttered crowd, chibi proportions, deformed hands, bad hands, extra fingers, missing fingers, asymmetrical eyes, distorted face, washed-out neon, muddy colors, text, logo, watermark",
+        "recommended": {
+            "steps": 28,
+            "guidance_scale": 5.8,
+        },
+    },
+    "opal_bloom": {
+        "name": "오팔 블룸",
+        "description": "진주광 파스텔 + 투명 프릴/리본 + 반짝이는 눈 + 로맨틱 블룸",
+        "prompt_suffix": "ethereal anime portrait, opalescent pastel glow, pearly pink and lilac palette, translucent frills and ribbons, glossy luminous eyes, delicate lashes, airy layered hair, soft bloom lighting, sparkling jewel-like highlights, refined clean lineart, elegant romantic mood, silky gradients, subtle halo glow, polished character focus",
+        "negative_suffix": "photorealistic, gritty texture, muddy colors, dark horror, harsh black shadows, dull skin, thick rough lineart, flat lighting, plain office clothes, bulky armor, cluttered scenery, text, logo, watermark, asymmetrical eyes, distorted face, bad hands, extra fingers, missing fingers",
+        "recommended": {
+            "steps": 28,
+            "guidance_scale": 5.8,
         },
     },
     "genshin": {

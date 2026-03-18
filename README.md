@@ -64,11 +64,14 @@ make dev-all
 | `watercolor_sketch` | 극세선 + 탈색 수채화 |
 | `kyoto_animation` | 섬세한 일상계, 부드러운 조명 |
 | `monogatari` | 샤프트 연출, 와타나베 아키오 스타일 |
+| `zutomayo` | 몽환적 도시감 + 상징 소품 + 레이어드 콜라주형 J-pop MV 무드 |
+| `prism_arcana` | 보라-분홍 발광 무대 + 음악선 같은 마법 궤적 + 손 뻗는 퍼포먼스 구도 |
+| `opal_bloom` | 진주광 파스텔 + 투명 프릴/리본 + 로맨틱 블룸 무드 |
+| `igeol_real` | 카톡 리액션 스티커풍 + 큰 둥근 얼굴 + 작은 O자 입 + 상단 글씨 자리 |
 | `shinkai` | 배경 특화, 감성적인 하늘 |
-| `ghibli` | 따뜻한 색감, 자연, 노스탤지어 |
 | `ufotable` | 화려한 이펙트, 액션 |
 
-외 14개 프리셋 추가 지원. `GET /api/styles`로 전체 목록 확인 가능.
+외 18개 프리셋 추가 지원. `GET /api/styles`로 전체 목록 확인 가능.
 
 ## API
 
@@ -198,7 +201,7 @@ app/
 ├── providers/
 │   └── nai.py           # NovelAI API 클라이언트
 ├── presets/
-│   └── styles.py        # 스타일 프리셋 (22개+)
+│   └── styles.py        # 스타일 프리셋 (23개+)
 ├── queue/
 │   ├── jobs.py          # 비동기 작업 핸들러
 │   └── worker.py        # SAQ 워커
