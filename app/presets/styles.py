@@ -394,6 +394,16 @@ STYLES = {
             "guidance_scale": 7.0,
         },
     },
+    "character_song_cover": {
+        "name": "캐릭터송 자켓",
+        "description": "미니멀 앨범커버 + 흰 배경 + 상반신 클로즈업 + 플랫 셀채색",
+        "prompt_suffix": "square album cover composition, close-up bust portrait, eye-level three-quarter view, minimalist white background, clean vector-like lineart, flat pastel-anime cel shading, simple large irises with crisp highlights, soft blush, gentle calm expression, bare shoulders or sleeveless top, small accessory accent, character-color emblem near shoulder, right-side vertical label strip layout, crisp edges, minimal texture, balanced negative space",
+        "negative_suffix": "photorealistic, painterly, gritty texture, heavy gradients, cinematic dramatic lighting, busy detailed background, chibi proportions, super deformed body, thick rough sketch lines, 3d render, film grain, watermark, logo, readable text, speech bubble, extra fingers, missing fingers, fused fingers, deformed hands, bad hands, malformed anatomy",
+        "recommended": {
+            "steps": 28,
+            "guidance_scale": 5.8,
+        },
+    },
     "waterful": {
         "name": "워터풀",
         "description": "물감이 흐르는듯한 수채화, 맑고 투명한 느낌",
@@ -412,6 +422,16 @@ STYLES = {
         "recommended": {
             "steps": 28,
             "guidance_scale": 6.0,
+        },
+    },
+    "kon_character_song": {
+        "name": "케이온 캐릭터송",
+        "description": "K-ON! 캐릭터송 2집 앨범 자켓 스타일 — KyoAni 특유의 따뜻한 셀 셰이딩 + 부드러운 하이라이트 + 클린 라인 + 파스텔 톤 배경",
+        "prompt_suffix": "kyoto animation style, warm soft cel shading, clean precise lineart, thin outlines, soft diffused lighting, warm color temperature, pastel gradient background, gentle bokeh, light bloom effect, detailed expressive eyes with soft highlights, natural hair shading with warm tones, subtle blush, relaxed casual pose, album cover composition, upper body portrait, slightly tilted head, gentle smile, school uniform or casual clothes, musical instrument accent, warm golden hour ambient light, soft shadow under chin, polished anime illustration, high detail face",
+        "negative_suffix": "harsh shadows, dark atmosphere, gritty, rough sketch, thick outlines, oversaturated, flat color, chibi, super deformed, photorealistic, 3d render, painterly, watercolor, monochrome, horror, aggressive expression, complex busy background, text, watermark, extra fingers, deformed hands, bad anatomy",
+        "recommended": {
+            "steps": 28,
+            "guidance_scale": 5.5,
         },
     },
 }
