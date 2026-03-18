@@ -425,13 +425,13 @@ STYLES = {
         },
     },
     "kon_character_song": {
-        "name": "케이온 캐릭터송",
-        "description": "K-ON! 캐릭터송 2집 앨범 자켓 스타일 — KyoAni 특유의 따뜻한 셀 셰이딩 + 부드러운 하이라이트 + 클린 라인 + 파스텔 톤 배경",
-        "prompt_suffix": "kyoto animation style, warm soft cel shading, clean precise lineart, thin outlines, soft diffused lighting, warm color temperature, pastel gradient background, gentle bokeh, light bloom effect, detailed expressive eyes with soft highlights, natural hair shading with warm tones, subtle blush, relaxed casual pose, album cover composition, upper body portrait, slightly tilted head, gentle smile, school uniform or casual clothes, musical instrument accent, warm golden hour ambient light, soft shadow under chin, polished anime illustration, high detail face",
-        "negative_suffix": "harsh shadows, dark atmosphere, gritty, rough sketch, thick outlines, oversaturated, flat color, chibi, super deformed, photorealistic, 3d render, painterly, watercolor, monochrome, horror, aggressive expression, complex busy background, text, watermark, extra fingers, deformed hands, bad anatomy",
+        "name": "캐릭터송 자켓",
+        "description": "캐릭터송 앨범 자켓 스타일 — 순백 배경 + 극도로 미니멀한 플랫 셀 셰이딩 + 얇은 최소 라인 + 클로즈업 버스트샷 + 크고 선명한 눈",
+        "prompt_suffix": "character song album cover style, close-up bust shot, face filling most of frame, pure white background, minimal flat cel shading, very few shadows, clean smooth skin with almost no shading, large expressive eyes with simple crisp highlights, thick eyelash lines, thin minimal hair lines, bare shoulders visible, hand near face pose, simple hair color shading with broad flat areas, subtle blush on cheeks, small closed mouth, clean coloring, no outlines on skin, sharp clean edges, square composition, high detail face, anime illustration, solo",
+        "negative_suffix": "detailed background, gradient background, scenery, bokeh, bloom, golden hour, warm lighting, dramatic lighting, complex shading, painterly, watercolor, soft focus, blurry, thick outlines, sketch lines, rough lineart, chibi, super deformed, photorealistic, 3d render, monochrome, dark, gritty, horror, text, watermark, logo, full body, extra fingers, deformed hands, bad anatomy, multiple characters",
         "recommended": {
             "steps": 28,
-            "guidance_scale": 5.5,
+            "guidance_scale": 5.0,
         },
     },
 }
