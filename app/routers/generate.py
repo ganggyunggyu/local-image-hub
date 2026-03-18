@@ -73,6 +73,8 @@ async def generate_image(request: GenerateRequest) -> GenerateResponse:
             from app.providers.nai import get_nai_client
 
             nai_client = get_nai_client()
+            if request.model not in nai_client.MODELS:
+                request.model = "nai-v4.5-full"
             image_base64, seed = await nai_client.generate(
                 prompt=prompt,
                 negative_prompt=negative_prompt,
