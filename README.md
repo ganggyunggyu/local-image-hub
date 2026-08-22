@@ -295,3 +295,7 @@ if request.model not in nai_client.MODELS:
 - 테스트 코드가 없다. `pyproject.toml`에 `pytest`가 dev 의존성으로 등록만 되어 있고 테스트 파일은 존재하지 않는다.
 - 비동기 큐(`/api/jobs/*`)와 워커는 이미지 생성 결과를 개별 job 상태로만 들고 있고, `outputs/` 메타 인덱스(`gallery_store.py`)에는 자동으로 반영되지 않는다. `/api/generate`(동기 경로)만 생성 시 메타데이터를 자동 기록한다.
 - SAQ 워커는 GPU 특성상 `concurrency=1`로 고정되어 있어, 대량 배치는 순차 처리된다.
+
+## 라이선스
+
+개인 프로젝트로 별도 라이선스를 명시하지 않았다. 코드 참고는 자유롭게 하되, 재배포나 상업적 이용은 문의 바란다.
